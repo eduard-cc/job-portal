@@ -1,0 +1,115 @@
+﻿@page "/edit-job"
+@using JobPortalDomain.Models;
+@using System.ComponentModel.DataAnnotations;
+@using JobPortalLogic.Extensions;
+@using Microsoft.AspNetCore.Authorization;
+@model JobPortalWeb.Pages.EmployerDashboard.EditJobModel
+@attribute [Authorize(Roles = "Employer")]
+@{
+    ViewData["Title"] = "Edit job";
+}
+
+<div class="post-job-container">
+    <div class="post-job-form">
+        <h1><strong>Edit job</strong></h1>
+        <div class="employer-profile-details">
+            <p>
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-briefcase inline-icon" viewBox="0 0 16 16">
+                    <path d="M6.5 1A1.5 1.5 0 0 0 5 2.5V3H1.5A1.5 1.5 0 0 0 0 4.5v8A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-8A1.5 1.5 0 0 0 14.5 3H11v-.5A1.5 1.5 0 0 0 9.5 1h-3zm0 1h3a.5.5 0 0 1 .5.5V3H6v-.5a.5.5 0 0 1 .5-.5zm1.886 6.914L15 7.151V12.5a.5.5 0 0 1-.5.5h-13a.5.5 0 0 1-.5-.5V7.15l6.614 1.764a1.5 1.5 0 0 0 .772 0zM1.5 4h13a.5.5 0 0 1 .5.5v1.616L8.129 7.948a.5.5 0 0 1-.258 0L1 6.116V4.5a.5.5 0 0 1 .5-.5z" />
+                </svg>
+                <strong>Company name:</strong> @(Model.Employer.CompanyName)
+            </p>
+            <p>
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-building inline-icon" viewBox="0 0 16 16">
+                    <path d="M4 2.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1Zm3 0a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1Zm3.5-.5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1ZM4 5.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1ZM7.5 5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1Zm2.5.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1ZM4.5 8a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1Zm2.5.5a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-1Zm3.5-.5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h1a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1Z" />
+                    <path d="M2 1a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V1Zm11 0H3v14h3v-2.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 .5.5V15h3V1Z" />
+                </svg>
+                <strong>Company size: </strong> @(Model.Employer.CompanySize.GetAttribute<DisplayAttribute>().Name) employees
+            </p>
+            <p>
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-geo-alt inline-icon" viewBox="0 0 16 16">
+                    <path d="M12.166 8.94c-.524 1.062-1.234 2.12-1.96 3.07A31.493 31.493 0 0 1 8 14.58a31.481 31.481 0 0 1-2.206-2.57c-.726-.95-1.436-2.008-1.96-3.07C3.304 7.867 3 6.862 3 6a5 5 0 0 1 10 0c0 .862-.305 1.867-.834 2.94zM8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10z" />
+                    <path d="M8 8a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm0 1a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" />
+                </svg>
+                <strong>Location:</strong> @(Model.Employer.Location)
+            </p>
+            <a asp-page="/UserSettings/UserAccountSettings">
+                Change profile details
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-box-arrow-up-right" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M8.636 3.5a.5.5 0 0 0-.5-.5H1.5A1.5 1.5 0 0 0 0 4.5v10A1.5 1.5 0 0 0 1.5 16h10a1.5 1.5 0 0 0 1.5-1.5V7.864a.5.5 0 0 0-1 0V14.5a.5.5 0 0 1-.5.5h-10a.5.5 0 0 1-.5-.5v-10a.5.5 0 0 1 .5-.5h6.636a.5.5 0 0 0 .5-.5z" />
+                    <path fill-rule="evenodd" d="M16 .5a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0 0 1h3.793L6.146 9.146a.5.5 0 1 0 .708.708L15 1.707V5.5a.5.5 0 0 0 1 0v-5z" />
+                </svg>
+            </a>
+        </div>
+        <form method="post">
+            <strong><label asp-for="Job.Title"></label></strong>
+            <p class="validation-error"><span asp-validation-for="Job.Title"></span></p>
+            <input asp-for="Job.Title" type="text" />
+
+            <strong><label asp-for="Job.Description"></label></strong>
+            <p class="validation-error"><span asp-validation-for="Job.Description"></span></p>
+            <textarea asp-for="Job.Description" spellcheck="true" placeholder="Describe the responsibilities of this job, required work experience, skills or education."></textarea>
+
+            <strong><label asp-for="Job.ContractType"></label></strong>
+            <p class="validation-error"><span asp-validation-for="Job.ContractType"></span></p>
+            <select asp-for="Job.ContractType" asp-items="Html.GetEnumSelectList<ContractType>()"></select>
+
+            <strong><label asp-for="Job.WorkArrangement"></label></strong>
+            <p class="validation-error"><span asp-validation-for="Job.WorkArrangement"></span></p>
+            <select asp-for="Job.WorkArrangement" asp-items="Html.GetEnumSelectList<WorkArrangement>()"></select>
+            <p class="extra-info">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-info-circle inline-icon" viewBox="0 0 16 16">
+                    <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
+                    <path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z" />
+                </svg>
+                <span id="on-site-info">The job is performed at a specific address in <em>@Model.Employer.Location</em>.</span>
+                <span id="remote-info">The job is performed remotely. No on-site work required.</span>
+                <span id="hybrid-info">The job combines on-site work in <em>@Model.Employer.Location</em> with some remote flexibility.</span>
+            </p>
+
+            <strong><label asp-for="Job.Salary.Type"></label></strong>
+            <p class="validation-error"><span asp-validation-for="Job.Salary.Type"></span></p>
+            <select id="salary-type" asp-for="Job.Salary.Type" asp-items="Html.GetEnumSelectList<SalaryType>()"></select>
+            <div class="salary-container">
+                <div class="exact-amount-container">
+                    <strong><label asp-for="Job.Salary.Amount"></label></strong>
+                    <div class="salary-input-field">
+                        <input id="exact-amount-input" class="euro-input" asp-for="Job.Salary.Amount" type="text" />
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-currency-euro" viewBox="0 0 16 16">
+                            <path d="M4 9.42h1.063C5.4 12.323 7.317 14 10.34 14c.622 0 1.167-.068 1.659-.185v-1.3c-.484.119-1.045.17-1.659.17-2.1 0-3.455-1.198-3.775-3.264h4.017v-.928H6.497v-.936c0-.11 0-.219.008-.329h4.078v-.927H6.618c.388-1.898 1.719-2.985 3.723-2.985.614 0 1.175.05 1.659.177V2.194A6.617 6.617 0 0 0 10.341 2c-2.928 0-4.82 1.569-5.244 4.3H4v.928h1.01v1.265H4v.928z" />
+                        </svg>
+                    </div>
+                    <p class="validation-error"><span asp-validation-for="Job.Salary.Amount"></span></p>
+                </div>
+                <div class="min-amount-container">
+                    <strong><label asp-for="Job.Salary.MinAmount"></label></strong>
+                    <div class="salary-input-field">
+                        <input id="min-amount-input" class="euro-input" asp-for="Job.Salary.MinAmount" type="text" />
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-currency-euro" viewBox="0 0 16 16">
+                            <path d="M4 9.42h1.063C5.4 12.323 7.317 14 10.34 14c.622 0 1.167-.068 1.659-.185v-1.3c-.484.119-1.045.17-1.659.17-2.1 0-3.455-1.198-3.775-3.264h4.017v-.928H6.497v-.936c0-.11 0-.219.008-.329h4.078v-.927H6.618c.388-1.898 1.719-2.985 3.723-2.985.614 0 1.175.05 1.659.177V2.194A6.617 6.617 0 0 0 10.341 2c-2.928 0-4.82 1.569-5.244 4.3H4v.928h1.01v1.265H4v.928z" />
+                        </svg>
+                    </div>
+                    <p class="validation-error"><span asp-validation-for="Job.Salary.MinAmount"></span></p>
+                </div>
+                <div class="max-amount-container">
+                    <strong><label asp-for="Job.Salary.MaxAmount"></label></strong>
+                    <div class="salary-input-field">
+                        <input id="max-amount-input" class="euro-input" asp-for="Job.Salary.MaxAmount" type="text" />
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-currency-euro" viewBox="0 0 16 16">
+                            <path d="M4 9.42h1.063C5.4 12.323 7.317 14 10.34 14c.622 0 1.167-.068 1.659-.185v-1.3c-.484.119-1.045.17-1.659.17-2.1 0-3.455-1.198-3.775-3.264h4.017v-.928H6.497v-.936c0-.11 0-.219.008-.329h4.078v-.927H6.618c.388-1.898 1.719-2.985 3.723-2.985.614 0 1.175.05 1.659.177V2.194A6.617 6.617 0 0 0 10.341 2c-2.928 0-4.82 1.569-5.244 4.3H4v.928h1.01v1.265H4v.928z" />
+                        </svg>
+                    </div>
+                    <p class="validation-error"><span asp-validation-for="Job.Salary.MaxAmount"></span></p>
+                </div>
+
+                <div class="salary-rate">
+                    <strong><label asp-for="Job.Salary.Rate"></label></strong>
+                    <p class="validation-error"><span asp-validation-for="Job.Salary.Rate"></span></p>
+                    <select asp-for="Job.Salary.Rate" asp-items="Html.GetEnumSelectList<SalaryRate>()"></select>
+                </div>
+            </div>
+            <button class="post-job-button">Save</button>
+            <input type="hidden" name="JobId" value="@Model.Job.Id" />
+        </form>
+    </div>
+</div>
